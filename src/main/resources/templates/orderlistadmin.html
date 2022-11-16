@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Item List</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" /> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<h1>Orders</h1>
+<a href="/itemlistadmin">Back to list</a>
+<table class="table table-bordered">
+	<tr>
+        <th>OrderId</th>
+        <th>CustomerId</th>
+        <th>Customer name</th>
+        <th>Items</th>
+        <th>Total</th>
+        
+    </tr>
+    <tr th:each="order : ${orders}" th:id="'order' + ${order.orderId}">
+        <td th:text="${order.orderId}">orderId</td>
+        <td th:text="${order.user.id}"></td>
+        <td th:text="${order.user.username}"></td>
+        <!--<td th:text="${order.orderDate}">date</td> -->
+        <td>
+            <table th:if="${order.items.size() > 0}" class="table">
+                <tr>
+                    <th>Item ID</th>
+                    <th>Title</th>
+                </tr>
+                <tr th:each="item: ${order.items}">
+                    <td th:text="${item.itemId}"></td>
+                    <td th:text="${item.title}"></td>
+                </tr>
+            </table>
+                    <td th:text="${order.total}+€"></td>
+            <td><a a th:href = "@{/deleteorder/{id}(id=${order.orderId})}"><button>Delete</button></a></td>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

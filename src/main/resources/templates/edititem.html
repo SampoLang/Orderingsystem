@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit item</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" /> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<form th:object="${item}" th:action="@{/saveitem}" action="#"
+			method="post">
+			<fieldset>
+				<legend>Edit item</legend>
+				<table>
+					<tr>
+
+						<td><label for="title">Item title</label> <input type=text
+							id="title" th:field="*{title}" class="form-control" /></td>
+						<td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Name
+							Error</td>
+					</tr>
+					<tr>
+						<td><label for="imgUrl">Image url(optional))</label> <input
+							type=text id="imgUrl" th:field="*{imgUrl}" class="form-control" /></td>
+					</tr>
+					<tr>
+						<td><label for="itemCode">Item code</label> <input type=text
+							id="itemCode" th:field="*{itemCode}" class="form-control" /></td>
+						<td th:if="${#fields.hasErrors('itemCode')}"
+							th:errors="*{itemCode}">Name Error</td>
+					</tr>
+					<tr>
+						<td><label for="title">price</label> <input type=text
+							id="price" th:field="*{price}" class="form-control" /></td>
+						<td th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Name
+							Error</td>
+					</tr>
+					<tr>
+						<td><label for="description">Description</label> <input
+							type=text id="description" th:field="*{description}"
+							class="form-control" /></td>
+						<td th:if="${#fields.hasErrors('description')}"
+							th:errors="*{description}">Description Error</td>
+					</tr>
+				</table>
+				<input type="submit" class="btn btn-primary" value="Save item"></input>
+			</fieldset>
+						<input type ="hidden" th:field="*{itemId}">
+		</form>
+		
+		<a href="/itemlistadmin">Back to list</a>
+		</div>
+</body>
+</html>
