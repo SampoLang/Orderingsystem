@@ -23,7 +23,7 @@ import hh.swd20.Orderingsystem.domain.UserRepository;
 
 @Configuration
 public class LoadDatabase {
-	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
+/*	private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 	SimpleDateFormat fdate = new SimpleDateFormat("dd.MM.yyyy");
 	@Bean
 	CommandLineRunner initDatabase(ItemRepository itemrepository, OrderRepository orderRepository, UserRepository userRepository) {
@@ -45,5 +45,5 @@ public class LoadDatabase {
 			log.info("Preloading " + itemrepository.save(item4));
 			log.info("Preloading" +userRepository.save(user1));
 		};
-	}
+	}*/
 }
