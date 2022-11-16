@@ -1,78 +1,86 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Item List</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-     <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" /> 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<title>Item List</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link type="text/css" rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="container-fluid">
-<div sec:authorize="isAuthenticated()" >
-<form th:action="@{/logout}" method="post">
-<input type="submit" value="Sign Out" class="btn btn-info btn-lg"/>
-</form>
-</div>
-<div sec:authorize="isAnonymous()">
-<a href="/login"><button>Login</button></a>
-</div>
-<h1 th:inline="text">Welcome to the shop [[${#httpServletRequest.remoteUser}]]!</h1>
-<h1>Items</h1>
-<div class="row">
-<div class="col-sm-8">
-<table class="table table-bordered">
-	<tr>
-	<th>Title</th>
-	<th>Description</th>
-	<th>Item Code</th>
-	<th>Price</th>
-	<th>image</th>
-	</tr>
-	<tr th:each = "item: ${items}">
-	<td th:text="${item.title}"></td>
-	<td th:text="${item.description}"></td>
-	<td th:text="${item.itemCode}"></td>
-	<td th:text="${item.price}"></td>
-	<td>
-	<img th:src="${item.imgUrl}" width=100 height = 100/>
-	</td>
-	<td sec:authorize="isAuthenticated()"><a th:href = "@{/buyitem/{id}(id=${item.itemId})}"><button class="btn btn-primary">Add to order</button></a></td>
-	<td sec:authorize="isAuthenticated()"><a th:href = "@{/edititem/{id}(id=${item.itemId})}"><button class="btn btn-warning">Edit</button></a></td>
-	<td sec:authorize="isAuthenticated()"><a th:href = "@{/delete/{id}(id=${item.itemId})}"><button class="btn btn-danger">Delete</button></a></td>
-	</tr>
-</Table>
-<a a href="/additemadmin"><button class="btn btn-success">Add new item</button></a>
-<a href="/orderlistadmin">View orders</a>
-</div>
-<div th:if="${session.total != null}" class="col-sm-4">
-<form th:object="${order}" th:action="@{/saveorder}" method = "post">
-<table>
-<h2>Order</h2>
-<tr>
-<th>Name</th>
-<th>Price</th>
-<tr th:each="cartitem: ${session.cart}">
-<td th:text = "${cartitem.title}"></td>
-<td th:text = "${cartitem.price}+€"></td>
-</tr>
-<tr>
-<td><strong>Total:</strong></td>
-<td><strong th:text="${session.total}+€"></strong>
-<td><a href="/resetitems"><button class="btn btn-danger">Clear cart</button></a></td>
-</td>
-</tr>
-<tr>
-<td>
-<input class="btn btn-success" type="submit" value="Send order"></input>
-</td>
-</tr>
-</table>
-</form>
-</div>
-</div>
-</div>
+	<div class="container-fluid">
+		<div sec:authorize="isAuthenticated()">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-info btn-lg" />
+			</form>
+		</div>
+		<div sec:authorize="isAnonymous()">
+			<a href="/login"><button>Login</button></a>
+		</div>
+		<h1 th:inline="text">Welcome to the shop
+			[[${#httpServletRequest.remoteUser}]]!</h1>
+		<h1>Items</h1>
+		<div class="row">
+			<div class="col-sm-8">
+				<table class="table table-bordered">
+					<tr>
+						<th>Title</th>
+						<th>Description</th>
+						<th>Item Code</th>
+						<th>Price</th>
+						<th>image</th>
+					</tr>
+					<tr th:each="item: ${items}">
+						<td th:text="${item.title}"></td>
+						<td th:text="${item.description}"></td>
+						<td th:text="${item.itemCode}"></td>
+						<td th:text="${item.price}"></td>
+						<td><img th:src="${item.imgUrl}" width=100 height=100 /></td>
+						<td sec:authorize="isAuthenticated()"><a
+							th:href="@{/buyitem/{id}(id=${item.itemId})}"><button
+									class="btn btn-primary">Add to order</button></a></td>
+						<td sec:authorize="isAuthenticated()"><a
+							th:href="@{/edititem/{id}(id=${item.itemId})}"><button
+									class="btn btn-warning">Edit</button></a></td>
+						<td sec:authorize="isAuthenticated()"><a
+							th:href="@{/delete/{id}(id=${item.itemId})}"><button
+									class="btn btn-danger">Delete</button></a></td>
+					</tr>
+				</Table>
+				<a a href="/additemadmin"><button class="btn btn-success">Add
+						new item</button></a> <a href="/orderlistadmin">View orders</a>
+			</div>
+			<div th:if="${session.total != null}" class="col-sm-4">
+				<form th:object="${order}" th:action="@{/saveorder}" method="post">
+					<table>
+						<h2>Order</h2>
+						<tr>
+							<th>Name</th>
+							<th>Price</th>
+						<tr th:each="cartitem: ${session.cart}">
+							<td th:text="${cartitem.title}"></td>
+							<td th:text="${cartitem.price}+€"></td>
+						</tr>
+						<tr>
+							<td><strong>Total:</strong></td>
+							<td><strong th:text="${session.total}+€"></strong>
+						</tr>
+						<tr>
+							<td><input class="btn btn-success" type="submit"
+								value="Send order"></input></td>
+						</tr>
+					</table>
+				</form>
+				<a href="/resetitems">
+				<button class="btn btn-danger">Clearcart</button>
+				</a>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
